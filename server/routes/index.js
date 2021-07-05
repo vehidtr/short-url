@@ -1,12 +1,24 @@
 import express from 'express';
 import { nanoid } from 'nanoid';
+import rateLimit from 'express-rate-limit';
 import Urls from '../models/Urls.js';
 
 // Initialize router
 const router = express.Router();
 
+// Initialize rate limit
+const limiterCreate = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 10
+});
+
+const limiterGet = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100
+});
+
 // Create short link
-router.post('/create', async (req, res) => {
+router.post('/create', limiterCreate, async (req, res) => {
   const body = req.body;
   const shortId = nanoid(7).toLowerCase();
   body.shortUrl = shortId;
@@ -24,7 +36,7 @@ router.post('/create', async (req, res) => {
 });
 
 // Get short link
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', limiterGet, async (req, res, next) => {
   const id = req.params.id;
 
   try {
