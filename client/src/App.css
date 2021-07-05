@@ -46,7 +46,7 @@ body {
 .title {
   font-size: 5em;
   color: black;
-  margin: -20px 0 0 0;
+  margin: -30px 0 0 0;
 }
 
 .title > span {
@@ -54,11 +54,13 @@ body {
 }
 
 .subtitle {
-  /* font-size: 2em; */
   margin: 0;
-  color: white;
-  font-weight: 700;
+  font-weight: 600;
   margin-bottom: -20px;
+  width: 100%;
+  text-align: right;
+  margin-top: -15px;
+  color: yellow;
 }
 
 .container {
@@ -80,15 +82,41 @@ body {
   border: none;
   outline: none;
   padding-left: 20px;
+  text-overflow: ellipsis;
+  color: #8c8b8b;
 }
 
 .container input[type='text']::placeholder {
   opacity: 0.5;
 }
 
-.url-error {
-  color: red;
+.input-wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+.url-wrapper {
+  margin: 0 auto;
+  width: 62%;
+  height: 50px;
+  background: #000000bd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-weight: 700;
+  margin-top: 20px;
+  border-radius: 10px;
+  position: relative;
+  z-index: 0;
+}
+
+.url-wrapper > p {
+  color: #c0bfbf;
+  font-weight: 400;
+}
+
+.url-error {
+  color: #ff6767;
 }
 
 h4 {
@@ -109,6 +137,21 @@ h4 {
 
 .submit:hover {
   background: #28b463;
+}
+
+.copy {
+  width: 86px;
+  height: 35px;
+  border-radius: 0;
+  position: absolute;
+  right: 15px;
+  color: #c0bfbf;
+  background: none;
+}
+
+.copy:hover {
+  background: none;
+  color: #58d68d;
 }
 
 header {

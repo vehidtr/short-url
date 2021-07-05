@@ -3,8 +3,10 @@ import validUrl from 'valid-url';
 import './App.css';
 import Logo from './logo.svg';
 
+const URL = 'http://192.168.0.13';
+
 const createUrl = (url) => {
-  const data = fetch('http://192.168.0.13:5000/create', {
+  const data = fetch(`${URL}:5000/create`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -19,7 +21,7 @@ const createUrl = (url) => {
 
 function App() {
   const [url, setUrl] = useState();
-  const [value, setValue] = useState();
+  const [value, setValue] = useState('');
   const [error, setError] = useState();
 
   const handleSubmit = async (e) => {
@@ -32,6 +34,7 @@ function App() {
           if (response.shortUrl) setUrl(response.shortUrl);
           else setUrl(response.url);
         } else setUrl('');
+        setValue('');
       } else {
         setError('Please enter valid url');
       }
@@ -41,7 +44,10 @@ function App() {
   };
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(`http://192.168.0.13:5000/${url}`);
+    console.log();
+    const text = `http://192.168.0.13/${url}`;
+    console.log(text);
+    if (text) navigator.clipboard.writeText(text);
   };
 
   return (
@@ -52,33 +58,28 @@ function App() {
           <h1 className='title'>
             short<span>.it</span>
           </h1>
-          <p className='subtitle'>Enter url and make it shorter</p>
+          <p className='subtitle'>... free now and always</p>
         </div>
         <div className='container'>
-          <div>
+          <div className='input-wrapper'>
             <input
               type='text'
               placeholder='https://exampleurl.com'
               onChange={(e) => setValue(e.target.value)}
-              defaultValue={value}
+              value={value}
             />
             <button onClick={handleSubmit} className='submit'>
               Shorten
             </button>
           </div>
-          {error ? <span className='url-error'>{error}</span> : null}
+          {error ? <div className='url-wrapper url-error'>{error}</div> : null}
           {url ? (
-            <>
-              <h4>Copy and use your shorter link</h4>
-              <input
-                type='text'
-                value={`http://192.168.0.13:5000/${url}`}
-                readOnly='readonly'
-              />
-              <button onClick={handleCopy} className='submit'>
+            <div className='url-wrapper'>
+              <p>{`${URL}/${url}`}</p>
+              <button onClick={handleCopy} className='submit copy'>
                 Copy
               </button>
-            </>
+            </div>
           ) : null}
         </div>
       </div>
