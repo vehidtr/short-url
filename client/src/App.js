@@ -17,21 +17,6 @@ const createUrl = (url) => {
   return data;
 };
 
-const getUrl = (id) => {
-  console.log(id);
-  const data = fetch(`http://192.168.0.13:5000${id}`, {
-    method: 'GET',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json'
-    }
-  })
-    .then((response) => response.json())
-    .then((data) => data)
-    .catch((err) => console.log('ERR', err));
-  return data;
-};
-
 function App() {
   const [url, setUrl] = useState();
   const [value, setValue] = useState();
@@ -78,7 +63,6 @@ function App() {
 
   return shouldRender ? (
     <div className='app-container'>
-      {/* <header>Something here</header> */}
       <div className='App'>
         <img src={Logo} className='logo' alt='Logo for short.it' />
         <div className='title-container'>
