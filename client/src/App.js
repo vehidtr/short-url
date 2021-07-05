@@ -1,4 +1,4 @@
-import { useState, useLayoutEffect } from 'react';
+import { useState } from 'react';
 import validUrl from 'valid-url';
 import './App.css';
 import Logo from './logo.svg';
@@ -21,23 +21,6 @@ function App() {
   const [url, setUrl] = useState();
   const [value, setValue] = useState();
   const [error, setError] = useState();
-  const [shouldRender, setShouldRender] = useState(false);
-
-  useLayoutEffect(() => {
-    (async () => {
-      const path = window.location.pathname;
-
-      if (path.length > 1)
-        try {
-          window.location.href = `http://192.168.0.13:5000${path}`;
-        } catch (err) {
-          window.location.href = 'http://localhost:3000/';
-        }
-      else {
-        setShouldRender(true);
-      }
-    })();
-  }, []);
 
   const handleSubmit = async (e) => {
     try {
@@ -61,7 +44,7 @@ function App() {
     navigator.clipboard.writeText(`http://192.168.0.13:5000/${url}`);
   };
 
-  return shouldRender ? (
+  return (
     <div className='app-container'>
       <div className='App'>
         <img src={Logo} className='logo' alt='Logo for short.it' />
@@ -101,7 +84,7 @@ function App() {
       </div>
       <footer>© short.it</footer>
     </div>
-  ) : null;
+  );
 }
 
 export default App;

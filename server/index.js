@@ -36,7 +36,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/', routes);
 
 // Start server
-app.listen(PORT, '192.168.0.13', () =>
+app.listen(PORT, () =>
   console.log(`App started on http://192.168.0.13:${PORT}`)
 );
 
