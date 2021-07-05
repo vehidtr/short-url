@@ -26,10 +26,12 @@ router.post('/create', async (req, res) => {
 // Get short link
 router.get('/:id', async (req, res, next) => {
   const id = req.params.id;
+  console.log('ID', id);
 
   try {
     const findUrl = await Urls.findOne({ shortUrl: id });
-    console.log(findUrl);
+    console.log('URL', findUrl);
+    res.header('Access-Control-Allow-Origin', '*');
     res.redirect(findUrl.url);
   } catch (error) {
     res.sendStatus(404).json({ msg: 'Error with post' });

@@ -37,7 +37,7 @@ app.use('/', routes);
 
 // Start server
 app.listen(PORT, '192.168.0.13', () =>
-  console.log(`App started on http://localhost:${PORT}`)
+  console.log(`App started on http://192.168.0.13:${PORT}`)
 );
 
 // Handle errors

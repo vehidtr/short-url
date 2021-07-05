@@ -2,12 +2,8 @@ html,
 body {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  background-image: url('./back2.jpg');
-  background-size: 600px;
-  background-position: top;
   height: 100%;
-  animation: icon_move 75s linear infinite;
+  box-sizing: border-box;
 }
 
 @keyframes icon_move {
@@ -18,13 +14,21 @@ body {
     background-position: -1161px 0;
   }
 }
-
+.app-container {
+  background-image: url('./back2.jpg');
+  background-size: 600px;
+  background-position: top;
+  height: 100%;
+  animation: icon_move 75s linear infinite;
+}
 .App {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   height: calc(100% - 70px);
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
 .logo {
@@ -41,12 +45,12 @@ body {
 
 .title {
   font-size: 5em;
-  color: white;
+  color: black;
   margin: -20px 0 0 0;
 }
 
 .title > span {
-  color: black;
+  color: white;
 }
 
 .subtitle {
@@ -87,7 +91,7 @@ body {
   font-weight: 700;
 }
 
-h3 {
+h4 {
   color: white;
 }
 
