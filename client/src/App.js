@@ -44,10 +44,15 @@ function App() {
   };
 
   const handleCopy = () => {
-    console.log();
     const text = `http://192.168.0.13/${url}`;
-    console.log(text);
-    if (text) navigator.clipboard.writeText(text);
+    if (navigator.clipboard)
+      navigator.clipboard
+        .writeText(text || '')
+        .then(() => console.log('Copied text'))
+        .catch((err) => console.log(err));
+    else {
+      document.execCommand('copy');
+    }
   };
 
   return (

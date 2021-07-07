@@ -2,6 +2,10 @@ import express from 'express';
 import { nanoid } from 'nanoid';
 import rateLimit from 'express-rate-limit';
 import Urls from '../models/Urls.js';
+import redis from 'redis';
+
+const REDIS_PORT = process.env.REDIS_PORT || 6379;
+const client = redis.createClient(REDIS_PORT);
 
 // Initialize router
 const router = express.Router();
@@ -17,6 +21,21 @@ const limiterGet = rateLimit({
   max: 100
 });
 
+// Cache middleware
+const cache = (req, res, next) => {
+  const { id } = req.params;
+  client.get(id, (err, data) => {
+    if (err) console.log(err);
+
+    if (data !== null) {
+      console.log('REDIS DATA', data);
+      res.json(data);
+    } else {
+      next();
+    }
+  });
+};
+
 // Create short link
 router.post('/create', limiterCreate, async (req, res) => {
   const body = req.body;
@@ -30,6 +49,9 @@ router.post('/create', limiterCreate, async (req, res) => {
   } else {
     const newUrl = new Urls(body);
     const saveUrl = await newUrl.save();
+    console.log('REDIS');
+    //Set data to redis
+    client.setex(shortId, 3600, JSON.stringify(saveUrl));
 
     res.json(saveUrl);
   }

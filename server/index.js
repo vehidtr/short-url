@@ -4,6 +4,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import env from 'dotenv';
+import redis from 'redis';
 
 // Imports
 import routes from './routes/index.js';
@@ -24,6 +25,11 @@ const app = express();
 
 // Create server port
 const PORT = process.env.PORT || 5000;
+const REDIS_PORT = process.env.REDIS_PORT || 6379;
+
+// Initialize redis
+
+const client = redis.createClient(REDIS_PORT);
 
 // Middleware
 app.use(morgan('dev'));
