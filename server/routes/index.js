@@ -49,7 +49,6 @@ router.post('/create', limiterCreate, async (req, res) => {
   } else {
     const newUrl = new Urls(body);
     const saveUrl = await newUrl.save();
-    console.log('REDIS');
     //Set data to redis
     client.setex(shortId, 3600, JSON.stringify(saveUrl));
 

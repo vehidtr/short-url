@@ -23,6 +23,9 @@ mongoose.connect(
 // Initialize express app
 const app = express();
 
+// Add favicon
+app.use('/favicon.ico', express.static('./favicon.ico'));
+
 // Create server port
 const PORT = process.env.PORT || 5000;
 const REDIS_PORT = process.env.REDIS_PORT || 6379;
